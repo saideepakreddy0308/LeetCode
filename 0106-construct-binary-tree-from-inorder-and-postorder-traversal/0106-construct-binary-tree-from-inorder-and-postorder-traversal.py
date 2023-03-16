@@ -5,25 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def buildTree(self, inorder: List[int], postorder: List[int]):
-        def bTree(inorder, postorder):
-            if not inorder:
-                return None
-            
-            # Take the last element of the postorder traversal as the root node
-            root_val = postorder.pop()
-            root = TreeNode(root_val)
-            
-            # Find the index of the root node's value in the inorder traversal
-            root_index = inorder.index(root_val)
-            
-            # Recursively construct the left and right subtrees
-            root.right = bTree(inorder[root_index+1:], postorder)
-            root.left = bTree(inorder[:root_index], postorder)
-            
-            return root
-
-
-        root = bTree(inorder, postorder)
-        return root
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         
+        if not postorder or not inorder:
+            return None
+        
+        value = postorder[-1]
+        root = TreeNode(value)
+        indx = inorder.index(value)
+        
+        root.left = self.buildTree(inorder[:indx],postorder[:indx])
+        root.right = self.buildTree(inorder[indx+1:],postorder[indx:-1])
+        
+        return root
