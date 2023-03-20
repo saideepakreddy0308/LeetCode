@@ -18,4 +18,8 @@ class Solution:
         return count >= n
     
 # Time Complexity: O(N)
-# Space Complexity; O(1)
+# Space Complexity: O(1)
+
+
+# Stop as soon as count becomes equal to n . Leads to optimization of previous submitted solution.
+# If count never becomes equal to n, n flowers cant be planted at the empty positions.
