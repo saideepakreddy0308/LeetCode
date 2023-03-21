@@ -1,15 +1,16 @@
 class Solution:
     def zeroFilledSubarray(self, nums: List[int]) -> int:
-        ans, num_subarray = 0,0
+        total_amount = 0
+        left = 0
         
-        for num in nums:
-            if num == 0:
-                num_subarray += 1
-            else:
-                num_subarray = 0
-            ans += num_subarray
-        
-        return ans
+        for right in range(len(nums)):
+            if nums[right] != 0:
+                left = right + 1
+                continue
+            if nums[right] == 0:
+                total_amount += right - left + 1
+                
+        return total_amount
     
     # Time Complexity: O(N)
     # Space Complexity: O(1)
