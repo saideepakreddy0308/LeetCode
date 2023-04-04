@@ -16,17 +16,18 @@ class Solution:
         
         # Alt + F3 = select all occurences of a selection
         
-        ht = {}
-        ans = 1
-        for i in range(len(s)):
-            if(s[i] in ht):
-                ht = {}
-                ans +=1
-                ht[s[i]] = 1
+        e=""
+        c=0
+        for i in s:
+            if i not in e:
+                e+=i
             else:
-                ht[s[i]] = 1
-        return ans
-        
+                e=""
+                c+=1
+                e+=i
+        return c+1
+
     
     # Time Complexity: O(N)
-    # Space Complexity: O(N)
+    # Space Complexity: O(k), where k is size of the string s, to track unique characters
+    # The maximum size can be size of entire string
