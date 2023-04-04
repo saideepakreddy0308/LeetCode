@@ -14,25 +14,19 @@ class Solution:
         # 2. Or Hashset to track only the characters
         # IMPORTANT POINT: We must clear it completely back to actual/neutral state at the start of each substring, if hashset
         
-        lastSeen = [-1] * 26
-        count = 1
-        substringStarting = 0
+        # Alt + F3 = select all occurences of a selection
         
-        # Input: s = "abacaba"
-        # Output: 4
-        # Two possible partitions are ("a","ba","cab","a") and ("ab","a","ca","ba").
-
-
-        for i in range(len(s)):  #O(N)
-            
-            # Check if most recent positon is already included in the substring
-            if lastSeen[ord(s[i]) - ord('a')] >= substringStarting:
-                count += 1
-                substringStarting = i
-            # And also, we update the lastSeen for the current character by i   
-            lastSeen[ord(s[i]) - ord('a')] = i
-            
-        return count
+        ht = {}
+        ans = 1
+        for i in range(len(s)):
+            if(s[i] in ht):
+                ht = {}
+                ans +=1
+                ht[s[i]] = 1
+            else:
+                ht[s[i]] = 1
+        return ans
+        
     
     # Time Complexity: O(N)
-    # Space Complexity: O(1)
+    # Space Complexity: O(N)
