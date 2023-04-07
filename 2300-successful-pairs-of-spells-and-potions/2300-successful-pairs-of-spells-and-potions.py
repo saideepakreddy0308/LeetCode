@@ -19,9 +19,23 @@ class Solution:
             if minPotion > maxPotion:
                 answer.append(0)
                 continue
-            # Binary Search
-            index = bisect.bisect_left(potions,minPotion)
-            answer.append(m-index)
+                
+            # Binary Search for lower bound
+            left = 0
+            right = m 
+            
+            while left < right:
+                mid = left + (right-left)//2
+                
+                if potions[mid] >= minPotion:
+                    right = mid
+                else:
+                    left = mid + 1
+                    
+            if left < m and potions[left] >= minPotion:
+                answer.append(m-left)
+            else:
+                answer.append(0)
             
         return answer
         
