@@ -1,32 +1,23 @@
-# Depth First Search Approach
-
 class Solution:
     def numEnclaves(self, grid: List[List[int]]) -> int:
-        m = len(grid)
-        n = len(grid[0])
-
-        # Remove lands connected to edge
-        def dfs(grid, i, j):
-            if i < 0 or i == len(grid) or j < 0 or j == len(grid[0]):
-                return
-            if grid[i][j] == 0:
-                return
-
-            grid[i][j] = 0
-            dfs(grid, i + 1, j)
-            dfs(grid, i - 1, j)
-            dfs(grid, i, j + 1)
-            dfs(grid, i, j - 1)
-
-        for i in range(m):
-            for j in range(n):
-                if i * j == 0 or i == m - 1 or j == n - 1:
-                    if grid[i][j] == 1:
-                        dfs(grid, i, j)
-
-        ans = 0
-
-        for row in grid:
-            ans += sum(row)
-
-        return ans
+        ROWS, COLS  = len(grid), len(grid[0])
+        
+        # Return num of land cells
+        def dfs(r,c):
+            if (r < 0 or c < 0 or r == ROWS or c == COLS or not grid[r][c] or (r,c) in visit):
+                return 0
+            visit.add((r,c))
+            res = 1
+            direct = [[0,1],[0,-1],[1,0],[-1,0]]
+            for dr,dc in direct:
+                res += dfs(r+dr, c+dc)
+            return res
+        
+        visit = set()
+        land, borderLand = 0,0
+        for r in range(ROWS):
+            for c in range(COLS):
+                land += grid[r][c]
+                if (grid[r][c] and (r,c) not in visit and (c in [0,COLS-1] or r in [0,ROWS-1])):
+                    borderLand += dfs(r,c)
+        return land - borderLand
