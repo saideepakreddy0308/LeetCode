@@ -1,27 +1,44 @@
 class Solution:
     def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:
-        n = len(colors)
-        out = [[] for _ in range(n)]        # outgoing edges init
-        for u, v in edges: out[u].append(v) # outgoing edges building of
-        visit = [0] * n                     # 0-unvisited, -1 in current stack, 1 visited
-        state = [defaultdict(int) for _ in range(n)]   # [node][letter] -> longest count of letters starting from this node
-        def dfs(node):
-            visit[node] = -1   # tmp on current path
-            for u in out[node]:
-                if visit[u] == -1: return -1   # cycle detedted
-                if not visit[u]:               # call dfs on unvisited nodes
-                    if dfs(u) == -1:    # if there was a cycle
-                        return -1       # then return -1
-                for k, val in state[u].items():                 # update the state for each letter in the child
-                    state[node][k] = max(state[node][k], val)
-            state[node][colors[node]] += 1                      # add the color of the node to the state
-            visit[node] = 1                                     # mark visited
-            return max(state[node].values())                    # longest color value for this node
         
-        ret = 0
-        for u in range(n):   # the main loop over all nodes
-            if not visit[u]:
-                r = dfs(u)
-                if r == -1: return -1   # cycle detected
-                ret = max(ret, r)
-        return ret
+        # You only need to record the max number of occurence of each color.
+        # DFS to find cycle
+        
+        graph = defaultdict(list)
+        for edge in edges:
+            u, v = edge
+            graph[u].append(v)
+
+        visited = [-1] * len(colors)
+        max_colors = defaultdict(lambda:[0]*26)
+        
+        def explore(node):
+            # returns if we found a cycle
+            if visited[node] == 0:
+                return True
+            elif visited[node] == 1:
+                return False
+
+            visited[node] = 0
+            mc = [0] * 26
+            for neighbor in graph[node]:
+                have_cycle = explore(neighbor)
+                if have_cycle: return have_cycle
+                mc = [max(mc[i], max_colors[neighbor][i]) for i in range(len(mc))]
+            mc[ord(colors[node]) - ord('a')] += 1
+            max_colors[node] = mc
+
+            visited[node] = 1
+            return False
+
+        for v in range(len(colors)):
+            if explore(v): return -1
+
+        res = 0
+        for v in max_colors.keys():
+            res = max(res, max(max_colors[v]))
+
+        return res
+    
+# T.C: O(M + N)
+# S.C: O(M + N)
