@@ -16,6 +16,8 @@ class Solution:
             for j in range(m - 1, -1, -1):
                 # Update dp[j + 1] by multiplying dp[j] with the count of target[j]th character in the ith position of words
                 dp[j + 1] += dp[j] * count[i][ord(target[j]) - ord('a')]
+                # dp[j + 1] += dp[j] * count[i][ord(target[j]) - ord('a')]: This updates the count of distinct sequences of the target string target[:j+1] by adding the count of distinct sequences of the target string target[:j] multiplied by the count of occurrences of the character target[j] in the i-th position of the words in words. This is done using the += operator to accumulate the counts.
+                # print("i:",i," j: ",j," dp[j+1]:",dp[j+1]," dp[j]:", dp[j])
                 dp[j + 1] %= mod  # Take modulo to prevent integer overflow
 
         return dp[m]  # Return the final value in dp array, which represents the total number of ways to form target
