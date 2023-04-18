@@ -3,8 +3,20 @@
 class Solution:
     def sort012(self,arr,n):
         # code here
-        arr.sort()
-        return arr
+        left = 0
+        right = n-1
+        index = 0
+        while left <= right:
+            while arr[right] == 2 and left <= right:
+                right -= 1
+            if arr[left] == 2 and left <= right:
+                arr[right],arr[left] = arr[left],arr[right]
+                right -= 1
+            if arr[left] == 0 and left <= right:
+                arr[index], arr[left] = arr[left], arr[index]
+                index += 1
+            left += 1
+        # print(*arr)
 
 
 #{ 
