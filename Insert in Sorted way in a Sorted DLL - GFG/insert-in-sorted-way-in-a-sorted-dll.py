@@ -12,22 +12,26 @@ def sortedInsert(head, x):
     #code here
     
     new_node = Node(x)
-    if head is None:
+    
+    if head is None:  # If head is none
         head = new_node
         return new_node
     
-    if head.data > x:
+    if head.data > x:  # If x to be inserted at position 1 , at first(head)
         new_node.next = head
         head.prev = new_node
         return new_node
+        
     temp = head
     while temp.next != None:
-        if temp.next.data > x:
+        if temp.next.data > x:  # Find the position where we need to insert x
             break
         temp = temp.next
+        
+    # If position found, insert the element
     new_node.next = temp.next
-    if temp.next:
-        temp.next.prev = new_node
+    if temp.next:  # At last element
+        temp.next.prev = new_node   # As nonetype object does not have attribute "prev"
     temp.next = new_node
     new_node.prev = temp
     
