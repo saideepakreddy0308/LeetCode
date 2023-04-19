@@ -1,35 +1,18 @@
-from collections import defaultdict , deque 
-
 import heapq as hq
-
 class Solution:
-
     def dijkstra(self, V, adj, S):
-
-        dist=[float('inf')]*V
-
-        dist[S]=0
-
-        heap=[]
-
+        dist = [float('inf')] * V
+        dist[S] = 0
+        heap = []
         hq.heappush(heap,(S,0))
-
         while heap:
-
-            pnode,pdist=hq.heappop(heap)
-
+            pnode,pdist = hq.heappop(heap)
             for i in adj[pnode]:
-
-                cnode=i[0]
-
-                cdist=i[1]
-
-                if cdist+pdist< dist[cnode]:
-
-                    dist[cnode]=cdist+pdist
-
+                cnode = i[0]
+                cdist = i[1]
+                if cdist + pdist < dist[cnode]:
+                    dist[cnode] = cdist + pdist
                     hq.heappush(heap,(cnode,dist[cnode]))
-
         return dist
 
 #{ 
