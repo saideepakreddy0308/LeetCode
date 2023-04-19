@@ -2,24 +2,28 @@
 
 from typing import List
 from queue import Queue
+
+# Recursive Method
 class Solution:
     #Function to return Breadth First Traversal of given graph.
     def bfsOfGraph(self, V: int, adj: List[List[int]]) -> List[int]:
         # code here
         visited = []
         queue = [0]  # Start with the first vertex
-        
-        while queue:
+    
+        def bfs():
+            if not queue:
+                return
             currnode = queue.pop(0)
-            if currnode not in visited:
-                visited.append(currnode)
-                
-                for u in adj[currnode]:
+            visited.append(currnode)
+            
+            for u in adj[currnode]:
+                if u not in visited and u not in queue:
                     queue.append(u)
-                
+            bfs()
+                    
+        bfs()
         return visited
-
-
 
 #{ 
  # Driver Code Starts
