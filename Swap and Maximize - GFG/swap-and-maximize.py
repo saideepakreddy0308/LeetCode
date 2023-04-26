@@ -1,14 +1,23 @@
 #User function Template for python3
 
 
-def maxSum(a,n):
-    # code here
-    a.sort()
-    sum1 = 0
-    
-    for i in range(n):
-        sum1 += abs(a[i] - a[-i-1])
-    return(sum1)
+#Python3
+def maxSum(arr,n):
+
+    ans=0
+    arr.sort()
+
+    i=0
+    j=n-1
+
+    while i<=j:
+        ans+=abs(arr[i]-arr[j])
+        i+=1
+        j-=1
+        
+    return ans*2
+
+
 
 #{ 
  # Driver Code Starts
