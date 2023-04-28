@@ -5,21 +5,16 @@ class Solution:
         vis = [False] * n # Create a boolean array to keep track of visited nodes
         ans = 0
         for i in range(n):
-            if not vis[i]: # Traverse the graph using BFS and count the number of connected components
-                self.bfs(i, vis, adj)
+            if not vis[i]: # Traverse the graph using DFS and count the number of connected components
+                self.dfs(i, vis, adj)
                 ans += 1
         return ans
 
-    def bfs(self, i: int, vis: List[bool], adj: List[List[int]]) -> None: # Breadth-first search to traverse the graph
-        q = deque()
-        q.append(i)
+    def dfs(self, i: int, vis: List[bool], adj: List[List[int]]) -> None: # Depth-first search to traverse the graph
         vis[i] = True
-        while q:
-            t = q.popleft()
-            for j in adj[t]:
-                if not vis[j]:
-                    vis[j] = True
-                    q.append(j)
+        for j in adj[i]:
+            if not vis[j]:
+                self.dfs(j, vis, adj)
 
     def createGraph(self, strs: List[str], n: int) -> List[List[int]]:
         ans = [[] for _ in range(n)]
