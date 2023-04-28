@@ -2,6 +2,7 @@
 
 class Solution:
     def productExceptSelf(self, nums, n):
+        
         #code here
         mul=1
         count0=0
@@ -10,15 +11,20 @@ class Solution:
                 mul*=i
             else:
                 count0+=1
+        
+        # replacing elements in nums by productexpectself
+        # Case1: if there is no "0" in nums"
         if count0==0:
             for i in range(n):
                 nums[i]=mul//nums[i]
+        # Case2: if there is "0" in nums"
         elif count0==1:
             for i in range(n):
                 if nums[i]!=0:
                     nums[i]=0
                 else:
                     nums[i]=mul
+        # Case3: if 2 or more "0"'s present
         else:
             for i in range(n):
                 nums[i]=0
