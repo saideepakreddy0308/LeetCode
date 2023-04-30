@@ -27,8 +27,8 @@ class Solution:
         
         
         arr[::] = c[::]
-        del pos
-        del neg
+        # del pos
+        # del neg
         
         return c
 
