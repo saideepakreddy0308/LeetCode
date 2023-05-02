@@ -1,15 +1,11 @@
 class Solution:
     def arraySign(self, nums: List[int]) -> int:
-        # Approach: Counting negative numbers
+        # Approach: Tracking sign
         
-        countNegativeNumbers = 0
-        
+        sign = 1
         for num in nums:
             if num == 0:
                 return 0
             if num < 0:
-                countNegativeNumbers = countNegativeNumbers + 1
-        
-        if countNegativeNumbers % 2 == 0:
-            return 1
-        return -1
+                sign = -1 * sign
+        return sign
