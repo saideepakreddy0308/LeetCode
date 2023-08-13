@@ -5,9 +5,10 @@ class Solution:
 		# code here
 		res = []
 		for i in range(n):
-		    if arr[i] == i + 1:
+		    if (arr[i] - 1) == i:
 		        res.append(i+1)
-		return 0 if n == 0 else res
+		return res
+		
 
 
 #{ 
