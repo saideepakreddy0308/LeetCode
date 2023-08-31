@@ -2,35 +2,25 @@
 
 class Solution:
     def rearrange(self,arr, n):
-        # code here
-        
-        c = [] # alternate result array
-        pos = []  # pos array
-        neg = []  # neg array
-        
-        for i in arr:
-            if i >= 0:
-                pos.append(i)
-            else:
-                neg.append(i)
-        
-        n = min(len(pos), len(neg))
+        p_arr = []
+        n_arr = []
+        res_arr = []
         
         for i in range(n):
-            c.append(pos[i])
-            c.append(neg[i])
+            if arr[i] >= 0:
+                p_arr.append(arr[i])
+            else:
+                n_arr.append(arr[i])
         
-        if len(pos) > n:
-            c.extend(pos[n:])
-        elif len(neg) > n:
-            c.extend(neg[n:])
+        while p_arr and n_arr:
+            res_arr.append(p_arr.pop(0))
+            res_arr.append(n_arr.pop(0))
+            
+        # Append any remaining elements
+        res_arr.extend(p_arr)
+        res_arr.extend(n_arr)
         
-        
-        arr[::] = c[::]
-        # del pos
-        # del neg
-        
-        return c
+        arr[::] = res_arr[::]
 
 #{ 
  # Driver Code Starts
