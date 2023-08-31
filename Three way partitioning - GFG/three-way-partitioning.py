@@ -3,23 +3,27 @@
 class Solution:
     #Function to partition the array around the range such 
     #that array is divided into three parts.
-	def threeWayPartition(self, arr, a, b):
+	def threeWayPartition(self, array, a, b):
 	    # code here 
+	    # Similar to Dutch Flag problem
+	    
 	    start = 0
 	    mid = 0
-	    end = len(arr) - 1
+	    end = n - 1
 	    
-	   # Similar to dutch national flag problem
 	    while mid <= end:
-	        if arr[mid] < a:
-	            arr[start],arr[mid] = arr[mid],arr[start]
+	        if array[mid] < a:
+	            array[mid],array[start] = array[start],array[mid]
+	            mid += 1
 	            start += 1
+	        elif a <= array[mid] <= b:
 	            mid += 1
-	        elif a <= arr[mid] <= b:
-	            mid += 1
-	        elif arr[mid] > b:
-	            arr[end],arr[mid] = arr[mid],arr[end]
+	        elif array[mid] > b:
+	            array[end],array[mid] = array[mid],array[end]
 	            end -= 1
+	    return array
+	            
+
 
 #{ 
  # Driver Code Starts
