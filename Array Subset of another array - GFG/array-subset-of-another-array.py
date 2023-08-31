@@ -1,26 +1,21 @@
 #User function Template for python3
 
 def isSubset( a1, a2, n, m):
-    
-    ht1 = dict()
-    ht2 = dict()
-
-    for i in range(n):
-        ht1[a1[i]] =  ht1.get(a1[i],0) + 1
-    
-    for j in range(m):
-        ht2[a2[j]] =  ht2.get(a2[j],0) + 1
+    ht1 = {}
+    ht2 = {}
+    for i in a1:
+        ht1[i] = ht1.get(i,0) + 1
+    for i in a2:
+        ht2[i] = ht2.get(i,0) + 1
         
-    # Comparing
-    for i in ht2.keys() :
-        if i in ht1 and ht1[i] >= ht2[i]:
-            continue
-        else:
+    for i in a2:
+        if i not in ht1:
             return "No"
-    return "Yes" 
-    
-    
-    
+        elif i in ht1:
+            ht1[i] -= 1
+            if ht1[i] == 0:
+                del ht1[i]
+    return "Yes"
     
 
 
