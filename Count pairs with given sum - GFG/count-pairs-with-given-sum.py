@@ -2,18 +2,17 @@
 
 class Solution:
     def getPairsCount(self, arr, n, k):
-        
         # code here
-        mp = dict()
+        
+        ht = {}
         cnt = 0
         
         for i in range(n):
-            target = k - arr[i]
-            if target in mp:
-                cnt= cnt + mp[k - arr[i]]
-            mp[arr[i]] = mp.get(arr[i],0) + 1
+            if k - arr[i] in ht:
+                cnt = cnt + ht[k-arr[i]]
+            ht[arr[i]] = ht.get(arr[i],0) + 1
+            
         return cnt
-
 
 #{ 
  # Driver Code Starts
