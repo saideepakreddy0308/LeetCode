@@ -1,25 +1,23 @@
 #User function Template for python3
 
 class Solution:
-    def sort012(self,arr,n):
-        # code here
-        left = 0
-        right = n-1
-        index = 0
-        while left <= right:
-            # if right is 2
-            while arr[right] == 2 and left <= right:
-                right -= 1
-            # while left is 2
-            if arr[left] == 2 and left <= right:
-                arr[right],arr[left] = arr[left],arr[right]
-                right -= 1
-            # while left is 0
-            if arr[left] == 0 and left <= right:
-                arr[index], arr[left] = arr[left], arr[index]
-                index += 1
-            left += 1
-        # print(*arr)
+    def sort012(self, arr, n):
+        # let [a,b] = [0,2], working similar to Dutch National Flag problem
+        a = 0
+        b = 2
+        start = 0
+        mid = 0
+        end = n - 1
+        while mid <= end:
+            if arr[mid] == 0:
+                arr[start], arr[mid] = arr[mid], arr[start]
+                start += 1
+                mid += 1
+            elif a < arr[mid] < b:
+                mid += 1
+            elif arr[mid] == 2:
+                arr[mid], arr[end] = arr[end], arr[mid]
+                end -= 1
 
 
 #{ 
