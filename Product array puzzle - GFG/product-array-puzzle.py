@@ -2,33 +2,24 @@
 
 class Solution:
     def productExceptSelf(self, nums, n):
+        p_nozero = 1
+        count_zero = 0
         
-        #code here
-        mul=1
-        count0=0
         for i in nums:
-            if i!=0:
-                mul*=i
+            if i == 0:
+                count_zero += 1
             else:
-                count0+=1
+                p_nozero *= i
         
-        # replacing elements in nums by productexpectself
-        # Case1: if there is no "0" in nums"
-        if count0==0:
-            for i in range(n):
-                nums[i]=mul//nums[i]
-        # Case2: if there is "0" in nums"
-        elif count0==1:
-            for i in range(n):
-                if nums[i]!=0:
-                    nums[i]=0
-                else:
-                    nums[i]=mul
-        # Case3: if 2 or more "0"'s present
-        else:
-            for i in range(n):
-                nums[i]=0
-        return nums
+        result = []
+        for i in nums:
+            if i != 0:
+                result.append(0 if count_zero > 0 else p_nozero // i)
+            else:
+                result.append(p_nozero if count_zero == 1 else 0)
+        
+        return result
+
 
 #{ 
  # Driver Code Starts
