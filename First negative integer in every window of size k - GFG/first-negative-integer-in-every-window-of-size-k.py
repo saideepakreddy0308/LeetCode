@@ -1,30 +1,22 @@
 #User function Template for python3
-from collections import deque
 
-def printFirstNegativeInteger(arr, n, k):
-    negative_numbers = deque()
-    result = []
+def printFirstNegativeInteger(A, N, K):
+    q = []
+    res = []
+    
+    for i in range(N):
+        if A[i] < 0:
+            q.append(i)
+        
+        if i >= K - 1:
+            while q and q[0] < i - K + 1:
+                q.pop(0)
+            
+            res.append(A[q[0]]) if q else res.append(0)
+    
+    return res
+                
 
-    for i in range(n):
-
-        # If negative, add its index to the queue
-        if arr[i] < 0:
-            negative_numbers.append(i)
-
-        # Remove indices that are out of the current window
-        while negative_numbers and negative_numbers[0] < i - k + 1:
-            negative_numbers.popleft()
-
-        # i >= k - 1 ensures that we have seen at least 'k' elements
-        if i >= k - 1:
-            # If the deque is not empty, there's a negative number
-            if negative_numbers:
-                result.append(arr[negative_numbers[0]])
-            # Else, the window doesn't have a negative number
-            else:
-                result.append(0)
-
-    return result
 
 #{ 
  # Driver Code Starts
