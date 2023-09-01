@@ -4,20 +4,14 @@ class Solution:
     #Function to find the days of buying and selling stock for max profit.
 	def stockBuySell(self, A, n):
 		#code here
-		
-		buy = 0
-		sell = 1
-		ans = []
-		
-		while buy < n and sell < n:
-		    if A[buy] < A[sell]:
-		        ans.append([buy,sell])
-		        buy += 1
-		        sell += 1
+		l = []
+		for i in range(1,n):
+		    if A[i-1] < A[i]:
+		        l.append((i-1,i))
 		    else:
-		        buy = sell
-		        sell += 1
-		return ans
+		        continue
+		return l
+
 
 #{ 
  # Driver Code Starts
