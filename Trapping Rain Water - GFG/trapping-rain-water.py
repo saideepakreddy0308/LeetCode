@@ -2,22 +2,29 @@
 class Solution:
     def trappingWater(self, arr,n):
         #Code here
-        lwp = [0] * n
-        rwp = [0] * n
+        
         sum = 0
         
-        lwp[0] = arr[0]
-        for i in range(0,n-1):
-            lwp[i] = max(arr[i],lwp[i-1]) 
+        # Left_Wall_Heights
+        l_side = [0] * n
+        l_side[0] = arr[0]
+        for i in range(1,n):
+            l_side[i] = max(l_side[i-1],arr[i])
         
-        rwp[n-1] = arr[n-1]
+        # Right_wall_Heights\
+        r_side = [0] * n
+        r_side[n-1] = arr[n-1]
         for i in range(n-2,-1,-1):
-            rwp[i] = max(arr[i],rwp[i+1])
+            r_side[i]= max(r_side[i+1],arr[i])
+        
         
         for i in range(1,n-1):
-            sum += (min(lwp[i],rwp[i]) - arr[i])
+            sum += (  min(l_side[i],r_side[i]) - arr[i] )
         
         return sum
+            
+        
+
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
