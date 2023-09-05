@@ -1,18 +1,34 @@
 #User function template for Python 3
 
-from collections import Counter
-
 class Solution:
     def majorityElement(self, A, N):
-        #Your code here
-        counter = Counter(A)
-        majority_count = N // 2
-    
-        for num, count in counter.items():
-            if count > majority_count:
-                return num
-    
-        return -1
+        # Initialize the candidate and count
+        candidate = A[0]
+        count = 1
+        
+        # Boyer-Moore Voting Algorithm
+        for i in range(1, N):
+            if A[i] == candidate:
+                count += 1
+            else:
+                count -= 1
+            
+            # When count becomes 0, change the candidate
+            if count == 0:
+                candidate = A[i]
+                count = 1
+        
+        # Verify if the candidate is indeed the majority element
+        count = 0
+        for num in A:
+            if num == candidate:
+                count += 1
+                
+        if count > N // 2:
+            return candidate
+        else:
+            return -1
+
 
 # class Solution:
 
