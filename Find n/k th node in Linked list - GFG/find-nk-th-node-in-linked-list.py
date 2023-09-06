@@ -10,17 +10,21 @@
         
 
 def fractionalNodes(head,k):
-        #add code here\
+        #add code here
         temp = head
-        n = 1
-        while temp.next != None:
+        l = 0
+        while temp:
+            l += 1  # length
             temp = temp.next
-            n += 1
+        
+        x = (l + k - 1) // k
+        
+        temp1 = head
+        for i in range(x-1):
+            temp1 = temp1.next
+        return temp1
             
-        x = (n + k - 1)// k   #ceil(n/k)
-        for i in range(1,x):
-            head = head.next
-        return head
+                          
 
 
 #{ 
