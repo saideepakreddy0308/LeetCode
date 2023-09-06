@@ -13,10 +13,14 @@ This is method only submission.
 """
 def getNth(head, k):
     # Code here
-    # k is index
-    for i in range(1,k):
-        head = head.next
-    return head.data
+    temp = head
+    # 1 based index
+    if k < 1:
+        return None
+        
+    for i in range(k - 1):
+        temp = temp.next
+    return temp.data
 
 
 #{ 
