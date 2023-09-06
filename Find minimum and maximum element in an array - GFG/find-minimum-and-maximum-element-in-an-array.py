@@ -5,14 +5,12 @@ def getMinMax( a, n):
     min = a[0]
     max = a[0]
     
-    for i in range(1,n):
+    for i in range(n):
         if a[i] < min:
             min = a[i]
         elif a[i] > max:
             max = a[i]
     return min,max
-    
-    
     
 
 
