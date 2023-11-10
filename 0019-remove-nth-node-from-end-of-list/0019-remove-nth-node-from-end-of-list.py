@@ -13,11 +13,11 @@ class Solution:
         second = dummy
         
         # Advance the first pointer, so that the gap between first and second is n+1 nodes apart
-        for _ in range(n+1):
+        for _ in range(n):
             first = first.next
         
         # moving first to the end, maintaining the gap
-        while first:
+        while first.next:
             first = first.next
             second = second.next
         
