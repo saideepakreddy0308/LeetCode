@@ -1,36 +1,36 @@
-from bisect import bisect_right
 class TimeMap:
 
     def __init__(self):
-        self.data = {}
+        self.store = defaultdict(list)
+        
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        if key not in self.data:
-            self.data[key] = []
-        self.data[key].append((timestamp, value))
+        self.store[key].append((timestamp,value))
+        
 
     def get(self, key: str, timestamp: int) -> str:
-        if key not in self.data:
-            return ""
+        N = len(self.store[key])
+        arr = self.store[key]
+        if arr and arr[0][0] > timestamp:
+            return ''
         
-        entries = self.data[key]
-        
-        # Binary search to find the insertion point
-        low, high = 0, len(entries) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if entries[mid][0] == timestamp:
-                return entries[mid][1]
-            elif entries[mid][0] < timestamp:
-                low = mid + 1
+        if arr and arr[-1][0] <= timestamp:
+            return arr[-1][1]
+        left = 0
+        right = N - 1
+        while right > left + 1:
+            mid = left + (right - left)//2
+
+            if arr[mid][0] == timestamp:
+                return arr[mid][1]
+            elif arr[mid][0] > timestamp:
+                right = mid
             else:
-                high = mid - 1
-
-        # If not found, return the value associated with the largest timestamp_prev
-        return "" if high < 0 else entries[high][1]
-# T.C: def set takes O(1) appending to list; def get performs bisect_right, takes O(logn) time; O(n) for creating timestamps list
-# S.C: O(n) , no.of time stamped entries across all the keys
-
+                left = mid
+        return arr[left][1] if arr and left <= timestamp else ''
+        
+# T.C: get(O(logn))
+# S.C: O(n), all entries
 
 # Your TimeMap object will be instantiated and called as such:
 # obj = TimeMap()
