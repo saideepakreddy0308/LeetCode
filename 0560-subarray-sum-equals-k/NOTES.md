@@ -1,0 +1,1 @@
+The key idea is to use a running sum to keep track of cummulative sum of elts encountered so far. Additionally use a hashmap to store the running sum and its count. This allows efficiently counting the number of subarrays with a sum equal to 'k
