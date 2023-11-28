@@ -4,23 +4,29 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         rows, cols = len(matrix), len(matrix[0])
-        zero_rows, zero_cols = set(), set()
+        first_row_has_zero = any(matrix[0][j] == 0 for j in range(cols))
+        first_col_has_zero = any(matrix[i][0] == 0 for i in range(rows))
         
-        # containing zeros
-        for i in range(rows):
-            for j in range(cols):
+        # Use the first row, and col to store infomration
+        for i in range(1,rows):
+            for j in range(1, cols):
                 if matrix[i][j] == 0:
-                    zero_rows.add(i)
-                    zero_cols.add(j)
-        
-        # zeros to identified rows
-        for row in zero_rows:
+                    matrix[i][0] = matrix[0][j] = 0
+                    
+        # set zeros based on info in the first row and second row
+        for i in range(1,rows):
+            for j in range(1,cols):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+                    
+        # set zeros for the first row and first column if necessary
+        if first_row_has_zero:
             for j in range(cols):
-                matrix[row][j] = 0
+                matrix[0][j] = 0
         
-        # zeros to identified cols
-        for col in zero_cols:
+        if first_col_has_zero:
             for i in range(rows):
-                matrix[i][col] = 0
+                matrix[i][0] = 0
         
-        # T.C: O(m*n), S.C: O(M+N), two_sets
+        # T.C: O(M*N)
+        # S.C: O(1)
