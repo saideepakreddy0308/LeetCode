@@ -1,23 +1,39 @@
+from functools import cmp_to_key
+
 class Solution:
     def largestNumber(self, nums: List[int]) -> str:
         
-        # Convert nums to strs for easy comparisons
-        nums_str = [str(num) for num in nums]
-        
-        # Custom comparison function for sorting
-        def compare(x, y):
+        def compare(x,y):
             return int(x+y) - int(y+x)
-        # Here, determines the order in which two numbers should be placed to form the largest number.
         
-        # Sort the numbers using the custom comparison function
-        nums_str.sort(key=cmp_to_key(compare),reverse = True)
+        sorted_nums = sorted(map(str,nums),key = cmp_to_key(compare), reverse = True)
         
-        # Join the sorted numbers to form the largest number
-        result = ''.join(nums_str)
+        result = ''.join(sorted_nums)
         
-        # Handle special case, when result is '0'
         return result if result[0] != '0' else '0'
-    
-    # t.c: O(nlogn), custom involves comparing each pair of nums, and sort operation
-    # s.c: O(n),nums_str
         
+#         nums_str = [str(num) for num in nums]
+        
+#         # Custom sorting key: Compare concatenated strings in descending order
+#         nums_str.sort(key = lambda x: x*10, reverse = True)
+
+"""           
+class LargerNumKey(str):
+    def __lt__(x, y):
+        # Compare x+y with y+x in reverse order to get descending order
+        return x+y > y+x
+
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        # Convert the list of numbers to list of strings
+        nums = [str(num) for num in nums]
+        
+        # Sort the list of strings using our custom sorting function
+        nums.sort(key=LargerNumKey)
+        
+        # Join the sorted list of strings to form the final result
+        largest_num = ''.join(nums)
+        
+        # If the largest number is 0, return "0"
+        # Otherwise, return the largest number
+        return "0" if largest_num[0] == "0" else largest_num """ 
