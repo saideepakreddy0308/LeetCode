@@ -6,18 +6,30 @@
 #         self.right = right
 class Solution:
     def findMode(self, root: Optional[TreeNode]) -> List[int]:
-        
-        ht = {}
-        
-        def xyz(node):
-            if node is None:
-                return
-            
-            ht[node.val] = ht.get(node.val,0) + 1
-            xyz(node.left)
-            xyz(node.right)
-        
-        xyz(root)
-        k = max(ht.values())
-        
-        return [ x for x in ht if ht[x] == k]
+        max_count = 0 
+        prev = None
+        count = 0
+        res = []
+        def dfs(node):
+            nonlocal prev , max_count,count, res
+            if not node:
+                return None
+                
+            dfs(node.left)
+            if not prev:
+                count = 1
+            elif prev and prev.val == node.val:
+                count += 1
+            else:
+                count = 1
+            prev = node
+
+            if count == max_count:
+                res.append(node.val)
+            elif count > max_count:
+                max_count = count
+                res = [node.val]
+
+            dfs(node.right)
+        dfs(root)
+        return res
